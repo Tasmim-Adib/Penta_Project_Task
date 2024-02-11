@@ -10,16 +10,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class EMSUser implements UserDetails {
+public class EMSUser implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID user_id;
@@ -28,13 +26,18 @@ public class EMSUser implements UserDetails {
     private String name;
     private String phone;
     private String status;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role;
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.getRoleEnum().toString()));
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + RoleEnum.ADMIN.name()));
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + RoleEnum.STUDENT.name()));
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + RoleEnum.TEACHER.name()));
+        return authorities;
     }
 
     @Override

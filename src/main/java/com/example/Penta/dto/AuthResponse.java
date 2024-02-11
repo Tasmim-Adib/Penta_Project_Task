@@ -1,13 +1,15 @@
 package com.example.Penta.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthRequest {
-    private String email;
-    private String password;
+public class AuthResponse {
+    private String token;
+    private String error;
 }

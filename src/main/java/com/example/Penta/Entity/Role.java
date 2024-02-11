@@ -25,4 +25,10 @@ public class Role {
 
     @OneToMany(mappedBy = "role",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<EMSUser> user = new ArrayList<>();
+
+    public Role(int roleId, RoleEnum roleEnum, String description) {
+        this.role_id = roleId;
+        this.roleEnum = roleEnum;
+        this.description = description;
+    }
 }

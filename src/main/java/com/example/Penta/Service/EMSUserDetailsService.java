@@ -1,17 +1,22 @@
 package com.example.Penta.Service;
 
 import com.example.Penta.Entity.EMSUser;
+import com.example.Penta.Entity.Role;
 import com.example.Penta.Repository.EMSUserRepository;
+import com.example.Penta.Repository.RoleRepository;
+import com.example.Penta.dto.EMSUserResponseAll;
 import com.example.Penta.dto.RegisterRequest;
 import com.example.Penta.dto.RegisterResponse;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +24,8 @@ public class EMSUserDetailsService {
     private final PasswordEncoder passwordEncoder;
     @Autowired
     private EMSUserRepository emsUserRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     public RegisterResponse saveEMSUser(RegisterRequest registerRequest){
         Optional<EMSUser> emsUser = emsUserRepository.findByEmail(registerRequest.getEmail());
@@ -38,6 +45,62 @@ public class EMSUserDetailsService {
             return new RegisterResponse(null,"User already Exists");
         }
 
+    }
+
+    public String updateUserRole(UUID user_id, int role_id){
+        Optional<EMSUser> optionalEMSUser = emsUserRepository.findByUserId(user_id);
+
+        if(!optionalEMSUser.isEmpty()){
+            System.out.println();
+            EMSUser user = optionalEMSUser.get();
+
+            Optional<Role> roleEntity = roleRepository.findById(role_id);
+            if(roleEntity.isPresent()){
+                Role role = roleEntity.get();
+                user.setRole(role);
+            }
+            emsUserRepository.save(user);
+            return "User Role Added";
+        }
+        else{
+            throw new EntityNotFoundException("User not found with ID: " + user_id);
+        }
+    }
+
+    public String updateUserStatus(UUID user_id, String status){
+        Optional<EMSUser> optionalEMSUser = emsUserRepository.findByUserId(user_id);
+
+        if(!optionalEMSUser.isEmpty()){
+            EMSUser user = optionalEMSUser.get();
+            user.setStatus(status);
+            emsUserRepository.save(user);
+            return "User Status Updated";
+        }
+        else{
+            throw new EntityNotFoundException("User not found with ID: " + user_id);
+        }
+    }
+
+    public List<EMSUserResponseAll> findAllUser(){
+        List<EMSUser> user = emsUserRepository.findAll();
+        return user.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+    private EMSUserResponseAll convertToDTO(EMSUser user){
+        EMSUserResponseAll dto = new EMSUserResponseAll();
+        dto.setUser_id(user.getUser_id());
+        dto.setEmail((user.getEmail()));
+        dto.setStatus(user.getStatus());
+        dto.setPhone(user.getPhone());
+        dto.setName(user.getName());
+
+        Role roleEntity = user.getRole();
+        if(roleEntity != null){
+            Role role = new Role(roleEntity.getRole_id(),roleEntity.getRoleEnum(),roleEntity.getDescription());
+            dto.setRole(role);
+        }
+        return dto;
     }
 
 }

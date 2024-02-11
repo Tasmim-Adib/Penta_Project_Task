@@ -4,10 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class AuthRequest {
-    private String email;
-    private String password;
+@AllArgsConstructor
+@Data
+public class UpdateUserRole {
+    private int role_id;
 }
