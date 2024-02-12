@@ -2,8 +2,10 @@ package com.example.Penta.Service;
 
 import com.example.Penta.Entity.EMSUser;
 import com.example.Penta.Entity.Role;
+import com.example.Penta.Entity.Teacher;
 import com.example.Penta.Repository.EMSUserRepository;
 import com.example.Penta.Repository.RoleRepository;
+
 import com.example.Penta.dto.EMSUserResponseAll;
 import com.example.Penta.dto.RegisterRequest;
 import com.example.Penta.dto.RegisterResponse;
@@ -26,6 +28,7 @@ public class EMSUserDetailsService {
     private EMSUserRepository emsUserRepository;
     @Autowired
     private RoleRepository roleRepository;
+
 
     public RegisterResponse saveEMSUser(RegisterRequest registerRequest){
         Optional<EMSUser> emsUser = emsUserRepository.findByEmail(registerRequest.getEmail());
@@ -51,10 +54,10 @@ public class EMSUserDetailsService {
         Optional<EMSUser> optionalEMSUser = emsUserRepository.findByUserId(user_id);
 
         if(!optionalEMSUser.isEmpty()){
-            System.out.println();
             EMSUser user = optionalEMSUser.get();
 
             Optional<Role> roleEntity = roleRepository.findById(role_id);
+
             if(roleEntity.isPresent()){
                 Role role = roleEntity.get();
                 user.setRole(role);
@@ -81,12 +84,15 @@ public class EMSUserDetailsService {
         }
     }
 
+    //Finding all EMSUser
     public List<EMSUserResponseAll> findAllUser(){
         List<EMSUser> user = emsUserRepository.findAll();
         return user.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
+
+
     private EMSUserResponseAll convertToDTO(EMSUser user){
         EMSUserResponseAll dto = new EMSUserResponseAll();
         dto.setUser_id(user.getUser_id());
@@ -103,4 +109,23 @@ public class EMSUserDetailsService {
         return dto;
     }
 
+//    public EMSUser createUser(UUID user_id){
+//        Optional<EMSUser> optionalEMSUser = emsUserRepository.findByUserId(user_id);
+//        if(optionalEMSUser.isPresent()){
+//            EMSUser user = optionalEMSUser.get();
+//            int roleId = user.getRole().getRole_id();
+//
+//            switch (roleId){
+//                case 2:
+//                    return studentFactory.createUser();
+//                case 3:
+//                    return teacherFactory.createUser();
+//                default:
+//                    throw new IllegalArgumentException("Invalid user type");
+//            }
+//        }
+//        else{
+//            throw new IllegalArgumentException("User not found for ID: " + user_id);
+//        }
+//    }
 }

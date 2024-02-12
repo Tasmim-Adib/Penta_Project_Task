@@ -49,7 +49,7 @@ public class AuthController {
             return ResponseEntity.ok("Role Added");
         }
         catch (Exception e){
-            return new ResponseEntity<>("User not found", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Can't be Updated", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
