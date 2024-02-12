@@ -12,10 +12,12 @@ import com.example.Penta.Service.TeacherService;
 import com.example.Penta.dto.AdvisorUpdateRequest;
 import com.example.Penta.dto.StudentRequest;
 import com.example.Penta.dto.StudentResponse;
+import com.example.Penta.dto.StudentUpdateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -86,6 +88,17 @@ public class StudentController {
     public ResponseEntity<?> updateAdvisorInfo(@PathVariable("user_id") UUID user_id, @RequestBody AdvisorUpdateRequest request){
         String response = studentService.updateAdvisorInfo(request.getAdvisor(), user_id);
         if(response.equals("Advisor Info Updated")){
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/student/update/{user_id}")
+    public ResponseEntity<?> updateStudentInfo(@PathVariable("user_id") UUID user_id, @RequestBody StudentUpdateRequest request){
+        String response = studentService.updateStudentInfo(user_id,request);
+        if(response.equals("Student User Updated")){
             return new ResponseEntity<>(response,HttpStatus.OK);
         }
         else{

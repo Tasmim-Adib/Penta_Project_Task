@@ -3,6 +3,7 @@ package com.example.Penta.Controller;
 import com.example.Penta.Entity.EMSUser;
 import com.example.Penta.Service.AuthService;
 import com.example.Penta.Service.EMSUserDetailsService;
+import com.example.Penta.Service.EmailSenderService;
 import com.example.Penta.Service.JwtService;
 import com.example.Penta.dto.*;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,10 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private EMSUserDetailsService emsUserDetailsService;
+    @Autowired
+    private EmailSenderService emailSenderService;
+
+
     @PostMapping("/authenticate")
     public ResponseEntity<?>register(@RequestBody AuthRequest request){
 
@@ -66,8 +71,29 @@ public class AuthController {
 
     }
     @GetMapping("/findall")
-    @ResponseBody
     public List<EMSUserResponseAll> findAll(){
         return emsUserDetailsService.findAllUser();
+    }
+
+    @PostMapping("/mail")
+    public ResponseEntity<?> sendMail(@RequestBody MailSendRequest request){
+        String response = emailSenderService.sendMail(request);
+        if(response.equals("Mail Sent Successfully")){
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>("Mail can't be sent",HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/reset/password/{user_id}")
+    public ResponseEntity<?> resetPassword(@PathVariable("user_id") UUID user_id, @RequestBody String password){
+        String response = emsUserDetailsService.resetPassword(user_id,password);
+        if(response.equals("Password Reset Successfully")){
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

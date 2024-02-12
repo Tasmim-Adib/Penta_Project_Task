@@ -7,6 +7,7 @@ import com.example.Penta.Service.EMSUserDetailsService;
 import com.example.Penta.Service.TeacherService;
 import com.example.Penta.dto.TeacherRequest;
 import com.example.Penta.dto.TeacherResponse;
+import com.example.Penta.dto.TeacherUpdateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,6 +62,16 @@ public class TeacherController {
         }
         else{
             return new ResponseEntity<>("Teacher Not Found",HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/teacher/update/{user_id}")
+    public ResponseEntity<?> updateTeacherInfo(@PathVariable("user_id") UUID user_id,@RequestBody TeacherUpdateRequest request){
+        String response = teacherService.updateTeacherInfo(user_id,request);
+        if(response.equals("Teacher User Updated")){
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

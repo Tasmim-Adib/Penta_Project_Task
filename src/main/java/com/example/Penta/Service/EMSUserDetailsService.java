@@ -109,6 +109,19 @@ public class EMSUserDetailsService {
         return dto;
     }
 
+    public String resetPassword(UUID user_id, String password){
+        Optional<EMSUser> optionalEMSUser = emsUserRepository.findByUserId(user_id);
+        if(optionalEMSUser.isPresent()){
+            EMSUser emsUser = optionalEMSUser.get();
+
+            emsUser.setPassword(passwordEncoder.encode(password));
+            emsUserRepository.save(emsUser);
+            return "Password Reset Successfully";
+        }
+        else{
+            return "Password Can't Reset";
+        }
+    }
 //    public EMSUser createUser(UUID user_id){
 //        Optional<EMSUser> optionalEMSUser = emsUserRepository.findByUserId(user_id);
 //        if(optionalEMSUser.isPresent()){
