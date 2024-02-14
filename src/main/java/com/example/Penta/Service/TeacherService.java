@@ -5,6 +5,7 @@ import com.example.Penta.Entity.Student;
 import com.example.Penta.Entity.Teacher;
 import com.example.Penta.Repository.EMSUserRepository;
 import com.example.Penta.Repository.TeacherRepository;
+import com.example.Penta.dto.AllTeacherResponse;
 import com.example.Penta.dto.StudentUpdateRequest;
 import com.example.Penta.dto.TeacherUpdateRequest;
 import jakarta.transaction.Transactional;
@@ -13,8 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class TeacherService {
@@ -64,5 +67,37 @@ public class TeacherService {
             return "Teacher is not Updated";
         }
 
+    }
+
+    public List<AllTeacherResponse> findAllTeacher(){
+        List<Teacher> teachers = teacherRepository.findAll();
+        return teachers.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<AllTeacherResponse> findAllTeacherWhomStudentRequest(UUID student_user_id){
+        List<Teacher> teachers = teacherRepository.findAllTeacherWhomAStudentRequest(student_user_id);
+        return teachers.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<AllTeacherResponse> findAllTeacherWhomStudentNotRequest(UUID student_user_id){
+        List<Teacher> teachers = teacherRepository.findAllTeacherWhomAStudentNOTRequest(student_user_id);
+        return teachers.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+    private AllTeacherResponse convertToDTO(Teacher teacher){
+        AllTeacherResponse dto = new AllTeacherResponse();
+        dto.setFaculty_name(teacher.getFaculty_name());
+        dto.setDesignatoin(teacher.getDesignation());
+        EMSUser user = teacher.getEmsUser();
+        dto.setPhone(user.getPhone());
+        dto.setName(user.getName());
+        dto.setEmail(user.getEmail());
+        dto.setUser_id(user.getUser_id());
+        return dto;
     }
 }

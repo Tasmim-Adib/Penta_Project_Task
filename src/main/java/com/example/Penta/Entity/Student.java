@@ -25,5 +25,4 @@ public class Student{
     @ManyToOne
     @JoinColumn(name = "advisor_id")
     private EMSUser advisor;
-
 }

@@ -6,6 +6,8 @@ import com.example.Penta.Entity.Teacher;
 import com.example.Penta.Repository.EMSUserRepository;
 import com.example.Penta.Repository.StudentRepository;
 import com.example.Penta.Repository.TeacherRepository;
+import com.example.Penta.dto.AllStudentWithAdvisorResponse;
+import com.example.Penta.dto.AllTeacherResponse;
 import com.example.Penta.dto.StudentRequest;
 import com.example.Penta.dto.StudentUpdateRequest;
 import jakarta.transaction.Transactional;
@@ -14,8 +16,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -35,6 +39,7 @@ public class StudentService {
         return studentRepository.findStudentByUserId(user_id);
     }
 
+    @Transactional
     public String updateAdvisorInfo(UUID teacherUserId, UUID user_id){
         Optional<Student> optionalStudent = studentRepository.findStudentByUserId(user_id);
         Optional<Teacher> optionalTeacher = teacherService.getTeacherInfo(teacherUserId);
@@ -89,4 +94,45 @@ public class StudentService {
         }
 
     }
+
+    public List<AllStudentWithAdvisorResponse> findAllStudentWithAdvisor(UUID teacher_user_id){
+        List<Student> students =  studentRepository.findAllByAdvisor_EmsUser_Id(teacher_user_id);
+        return students.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    private AllStudentWithAdvisorResponse convertToDTO(Student student){
+        AllStudentWithAdvisorResponse dto = new AllStudentWithAdvisorResponse();
+        dto.setStudent_id(student.getStudent_id());
+        dto.setDepartment_name(student.getDepartment_name());
+        dto.setBatch_no(student.getBatch_no());
+
+        EMSUser user = student.getEmsUser();
+        dto.setName(user.getName());
+        dto.setPhone(user.getPhone());
+        dto.setEmail(user.getEmail());
+        return dto;
+    }
+
+    public String removeStudentFromAdviceList(UUID student_user_id){
+        Optional<Student> optionalStudent = studentRepository.findStudentByUserId(student_user_id);
+        if(optionalStudent.isPresent()){
+            Student student = optionalStudent.get();
+            student.setAdvisor(null);
+            studentRepository.save(student);
+            return "Student is removed from Advice List";
+        }
+        else{
+            return "Can't be removed from your list";
+        }
+    }
+
+    public List<AllStudentWithAdvisorResponse> findAllStudentWhoRequest(UUID teacher_user_id){
+        List<Student> students = studentRepository.findAllStudentWhoRequestTeacher(teacher_user_id);
+        return students.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
 }

@@ -10,6 +10,7 @@ import com.example.Penta.dto.EMSUserResponseAll;
 import com.example.Penta.dto.RegisterRequest;
 import com.example.Penta.dto.RegisterResponse;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,7 +30,12 @@ public class EMSUserDetailsService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private TemporaryRegistryService temporaryRegistryService;
+    @Autowired
+    private MailKeyService mailKeyService;
 
+    @Transactional
     public RegisterResponse saveEMSUser(RegisterRequest registerRequest){
         Optional<EMSUser> emsUser = emsUserRepository.findByEmail(registerRequest.getEmail());
         if(!emsUser.isPresent()){
@@ -42,6 +48,8 @@ public class EMSUserDetailsService {
                     .build();
 
             EMSUser savedUser =  emsUserRepository.save(user);
+            temporaryRegistryService.deleteFromTemporaryTable(registerRequest.getEmail());
+            String r = mailKeyService.deleteTheMailKey(registerRequest.getEmail());
             return new RegisterResponse(savedUser.getUser_id(),"User Created");
         }
         else{
@@ -50,6 +58,9 @@ public class EMSUserDetailsService {
 
     }
 
+    public Optional<EMSUser> findUserByUserId(UUID user_id){
+        return emsUserRepository.findByUserId(user_id);
+    }
     public String updateUserRole(UUID user_id, int role_id){
         Optional<EMSUser> optionalEMSUser = emsUserRepository.findByUserId(user_id);
 

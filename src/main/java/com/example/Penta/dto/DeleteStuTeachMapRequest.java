@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class MailSendRequest {
-    private String receiver;
-    private String subject;
+@NoArgsConstructor
+public class DeleteStuTeachMapRequest {
+    private UUID student_user_id;
 }
