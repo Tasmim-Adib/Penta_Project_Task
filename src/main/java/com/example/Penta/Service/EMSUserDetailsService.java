@@ -9,10 +9,12 @@ import com.example.Penta.Repository.RoleRepository;
 import com.example.Penta.dto.EMSUserResponseAll;
 import com.example.Penta.dto.RegisterRequest;
 import com.example.Penta.dto.RegisterResponse;
+import com.example.Penta.dto.ResetPasswordRequest;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -60,6 +62,10 @@ public class EMSUserDetailsService {
 
     public Optional<EMSUser> findUserByUserId(UUID user_id){
         return emsUserRepository.findByUserId(user_id);
+    }
+
+    public Optional<EMSUser> findByEmail(String email){
+        return emsUserRepository.findByEmail(email);
     }
     public String updateUserRole(UUID user_id, int role_id){
         Optional<EMSUser> optionalEMSUser = emsUserRepository.findByUserId(user_id);
@@ -120,12 +126,13 @@ public class EMSUserDetailsService {
         return dto;
     }
 
-    public String resetPassword(UUID user_id, String password){
-        Optional<EMSUser> optionalEMSUser = emsUserRepository.findByUserId(user_id);
+    public String resetPassword(String email, ResetPasswordRequest request){
+
+        Optional<EMSUser> optionalEMSUser = emsUserRepository.findByEmail(email);
         if(optionalEMSUser.isPresent()){
             EMSUser emsUser = optionalEMSUser.get();
 
-            emsUser.setPassword(passwordEncoder.encode(password));
+            emsUser.setPassword(passwordEncoder.encode(request.getPassword()));
             emsUserRepository.save(emsUser);
             return "Password Reset Successfully";
         }

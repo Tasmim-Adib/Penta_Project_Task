@@ -109,6 +109,7 @@ public class StudentService {
         dto.setBatch_no(student.getBatch_no());
 
         EMSUser user = student.getEmsUser();
+        dto.setUser_id(user.getUser_id());
         dto.setName(user.getName());
         dto.setPhone(user.getPhone());
         dto.setEmail(user.getEmail());

@@ -5,10 +5,10 @@ import com.example.Penta.Service.TemporaryRegistryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.swing.text.html.Option;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth/temp")
@@ -25,5 +25,12 @@ public class TemporaryRegistryController {
         else{
             return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    //find temporary user by email
+    @GetMapping("/get/temporary/user/{email}")
+    public ResponseEntity<?> getTemporaryUserByEmail(@PathVariable("email") String email){
+        TemporaryRegistration temporaryRegistration = temporaryRegistryService.findTemporaryUserByEmail(email);
+        return new ResponseEntity<>(temporaryRegistration,HttpStatus.OK);
     }
 }

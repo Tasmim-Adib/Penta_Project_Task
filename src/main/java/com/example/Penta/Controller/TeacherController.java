@@ -55,7 +55,7 @@ public class TeacherController {
         TeacherResponse teacherResponse = new TeacherResponse();
         if(optionalResponse.isPresent()){
             Teacher teacher = optionalResponse.get();
-
+            teacherResponse.setUser_id(user_id);
             teacherResponse.setStatus(teacher.getEmsUser().getStatus());
             teacherResponse.setName(teacher.getEmsUser().getName());
             teacherResponse.setPhone(teacher.getEmsUser().getPhone());

@@ -25,11 +25,17 @@ public class AuthService {
     public AuthResponse authenticate(AuthRequest request) throws AuthenticationException {
         try{
             UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
+            System.out.println(userDetails.getUsername());
+            System.out.println(userDetails.getPassword());
             if(userDetails == null){
-                throw new UsernameNotFoundException("User doesn't Exists");
+                return AuthResponse.builder()
+                        .error("User Doesn't Exists")
+                        .build();
             }
             if(!passwordEncoder.matches(request.getPassword(), userDetails.getPassword())){
-                throw new BadCredentialsException("Password Not matches");
+                return AuthResponse.builder()
+                        .error("Password Not matches")
+                        .build();
             }
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     request.getEmail(),
@@ -42,13 +48,13 @@ public class AuthService {
 
             if(user.getRole() == null){
                 return AuthResponse.builder()
-                        .error("You have not assigned any role")
+                        .error("Sorry !! You have not assigned any role yet")
                         .build();
             }
 
             if(user.getStatus().equals("DEACTIVE")){
                 return AuthResponse.builder()
-                        .error("You are DEACTIVATED")
+                        .error("Sorry !! You account is  DEACTIVATED")
                         .build();
             }
             //generate token using the details
@@ -58,7 +64,7 @@ public class AuthService {
                     .build();
         }
         catch (UsernameNotFoundException | BadCredentialsException e){
-            throw new AuthenticationException("Invalid UserName or Password" + e) {
+            throw new AuthenticationException("Invalid UserName or Password") {
             };
         }
 

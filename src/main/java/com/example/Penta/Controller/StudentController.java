@@ -24,7 +24,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin
 public class StudentController {
 
     @Autowired
@@ -85,7 +84,7 @@ public class StudentController {
             return new ResponseEntity<>(studentResponse,HttpStatus.OK);
         }
         else{
-            return new ResponseEntity<>("Teacher Not Found",HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Student Not Found",HttpStatus.NOT_FOUND);
         }
     }
 

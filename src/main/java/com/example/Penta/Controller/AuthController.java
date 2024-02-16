@@ -7,13 +7,9 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -72,10 +68,24 @@ public class AuthController {
         }
     }
 
+    @GetMapping("/find/{email}")
+    public ResponseEntity<?> findByEmail(@PathVariable("email")String email){
+        Optional<EMSUser> optionalEMSUser = emsUserDetailsService.findByEmail(email);
+        EmsUserResponseSingle emsUserResponseSingle = new EmsUserResponseSingle();
+        if(optionalEMSUser.isPresent()){
+            EMSUser emsUser = optionalEMSUser.get();
+            emsUserResponseSingle.setUser_id(emsUser.getUser_id());
+            emsUserResponseSingle.setRole_id(emsUser.getRole().getRole_id());
+            return new ResponseEntity<>(emsUserResponseSingle,HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>("Not Found",HttpStatus.NOT_FOUND);
+        }
+    }
+
     @Transactional
-    @PutMapping("/reset/password/{user_id}")
-    public ResponseEntity<?> resetPassword(@PathVariable("user_id") UUID user_id, @RequestBody String password){
-        String response = emsUserDetailsService.resetPassword(user_id,password);
+    @PutMapping("/reset/password/{email}")
+    public ResponseEntity<?> resetPassword(@PathVariable("email") String email, @RequestBody ResetPasswordRequest request){
+        String response = emsUserDetailsService.resetPassword(email,request);
 
         if(response.equals("Password Reset Successfully")){
             return new ResponseEntity<>(response,HttpStatus.OK);
