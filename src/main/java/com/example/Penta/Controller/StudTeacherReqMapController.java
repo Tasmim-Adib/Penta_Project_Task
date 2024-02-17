@@ -12,14 +12,14 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/studTeacherReq")
 @CrossOrigin
 public class StudTeacherReqMapController {
     @Autowired
     private StudentTeacherMapService studentTeacherMapService;
 
     // student request to a teacher
-    @PostMapping("/studTeacherReq/save")
+    @PostMapping("/save")
     public ResponseEntity<?> saveRequest(@RequestBody StudentTeacherRequestMap map){
         String response = studentTeacherMapService.saveData(map);
         if(response.equals("Request Sent")){
@@ -35,7 +35,7 @@ public class StudTeacherReqMapController {
     }
 
     // If any teacher reject
-    @DeleteMapping("/studTeacherReq/delete/{teacher_user_id}")
+    @DeleteMapping("/delete/{teacher_user_id}")
     public ResponseEntity<?> deleteStudentTeacherMap(@PathVariable("teacher_user_id") UUID teacher_user_id,
                                                      @RequestBody DeleteStuTeachMapRequest request){
         String response = studentTeacherMapService.deleteStudentTeacherMapId(request.getStudent_user_id(),teacher_user_id);

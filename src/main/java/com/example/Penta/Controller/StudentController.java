@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/student")
 public class StudentController {
 
     @Autowired
@@ -38,7 +39,7 @@ public class StudentController {
     private StudentTeacherMapService studentTeacherMapService;
 
     //save a student info
-    @PostMapping("/student/save/{user_id}")
+    @PostMapping("/save/{user_id}")
     public ResponseEntity<?> createStudent(@PathVariable("user_id") UUID user_id, @RequestBody StudentRequest request){
         Optional<EMSUser> optionalEMSUser = emsUserRepository.findByUserId(user_id);
         Student student = new Student();
@@ -58,7 +59,8 @@ public class StudentController {
     }
 
     //get a student info
-    @GetMapping("/student/get/{user_id}")
+
+    @GetMapping("/get/{user_id}")
     public ResponseEntity<?> getStudentInfo(@PathVariable("user_id") UUID user_id){
         Optional<Student> optionalStudent = studentService.getStudentInfo(user_id);
         StudentResponse studentResponse = new StudentResponse();
@@ -89,7 +91,7 @@ public class StudentController {
     }
 
     //update student advisor info
-    @PutMapping("/student/update/advisor/{user_id}")
+    @PutMapping("/update/advisor/{user_id}")
     public ResponseEntity<?> updateAdvisorInfo(@PathVariable("user_id") UUID user_id, @RequestBody AdvisorUpdateRequest request){
         String response = studentService.updateAdvisorInfo(request.getAdvisor(), user_id);
         if(response.equals("Advisor Info Updated")){
@@ -108,9 +110,9 @@ public class StudentController {
     }
 
     // remove a student from Advice list
-    @PutMapping("/student/remove/advisor/{student_user_id}")
-    public ResponseEntity<?> removeStudentFromAdviceList(@PathVariable("student_user_id")UUID studen_user_id){
-        String response = studentService.removeStudentFromAdviceList(studen_user_id);
+    @PutMapping("/remove/advisor/{student_user_id}")
+    public ResponseEntity<?> removeStudentFromAdviceList(@PathVariable("student_user_id")UUID student_user_id){
+        String response = studentService.removeStudentFromAdviceList(student_user_id);
         if(response.equals("Student is removed from Advice List")){
             return new ResponseEntity<>(response,HttpStatus.OK);
         }
@@ -121,13 +123,13 @@ public class StudentController {
 
 
     //Find all student with particular advisor
-    @GetMapping("/student/get/advisor/{teacher_user_id}")
+    @GetMapping("/get/advisor/{teacher_user_id}")
     public List<AllStudentWithAdvisorResponse> getAllStudentWithAdvisor(@PathVariable("teacher_user_id") UUID teacher_user_id){
         return studentService.findAllStudentWithAdvisor(teacher_user_id);
     }
 
     //update a student info
-    @PutMapping("/student/update/{user_id}")
+    @PutMapping("/update/{user_id}")
     public ResponseEntity<?> updateStudentInfo(@PathVariable("user_id") UUID user_id, @RequestBody StudentUpdateRequest request){
         String response = studentService.updateStudentInfo(user_id,request);
         if(response.equals("Student User Updated")){
@@ -139,7 +141,7 @@ public class StudentController {
     }
 
     // find student who request a teacher to be advisor
-    @GetMapping("/student/get/request/advisor/{teacher_user_id}")
+    @GetMapping("/get/request/advisor/{teacher_user_id}")
     public List<AllStudentWithAdvisorResponse> getAllStudentWhoRequest(@PathVariable("teacher_user_id")UUID teacher_user_id){
         return studentService.findAllStudentWhoRequest(teacher_user_id);
     }

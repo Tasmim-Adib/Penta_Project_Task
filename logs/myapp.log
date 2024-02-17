@@ -1,0 +1,116 @@
+2024-02-17T22:47:22.156+06:00  INFO 32469 --- [main] com.example.Penta.TaskApplication        : Starting TaskApplication using Java 17.0.6 with PID 32469 (/home/adib/Documents/Penta Project/Penta/target/classes started by adib in /home/adib/Documents/Penta Project/Penta)
+2024-02-17T22:47:22.164+06:00  INFO 32469 --- [main] com.example.Penta.TaskApplication        : No active profile set, falling back to 1 default profile: "default"
+2024-02-17T22:47:23.884+06:00  INFO 32469 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-02-17T22:47:24.022+06:00  INFO 32469 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 116 ms. Found 7 JPA repository interfaces.
+2024-02-17T22:47:25.027+06:00  INFO 32469 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-02-17T22:47:25.046+06:00  INFO 32469 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-02-17T22:47:25.047+06:00  INFO 32469 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-02-17T22:47:25.135+06:00  INFO 32469 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-02-17T22:47:25.136+06:00  INFO 32469 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2771 ms
+2024-02-17T22:47:25.424+06:00  INFO 32469 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-02-17T22:47:25.506+06:00  INFO 32469 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-02-17T22:47:25.552+06:00  INFO 32469 --- [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-02-17T22:47:25.845+06:00  INFO 32469 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-02-17T22:47:25.870+06:00  INFO 32469 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-02-17T22:47:26.192+06:00  INFO 32469 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@baa227e
+2024-02-17T22:47:26.196+06:00  INFO 32469 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-02-17T22:47:27.756+06:00  INFO 32469 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-02-17T22:47:27.917+06:00  INFO 32469 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-02-17T22:47:28.389+06:00  INFO 32469 --- [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-02-17T22:47:29.722+06:00  WARN 32469 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-02-17T22:47:30.114+06:00  INFO 32469 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3d123d10, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1ca6323c, org.springframework.security.web.context.SecurityContextHolderFilter@34272839, org.springframework.security.web.header.HeaderWriterFilter@4e67f0a0, org.springframework.web.filter.CorsFilter@27b89e0a, org.springframework.security.web.authentication.logout.LogoutFilter@3c0640fa, com.example.Penta.Config.JwtAuthFilter@4d1a763c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@17eb35fa, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1d691d4f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@42bb0492, org.springframework.security.web.session.SessionManagementFilter@74161ed7, org.springframework.security.web.access.ExceptionTranslationFilter@7734695d, org.springframework.security.web.access.intercept.AuthorizationFilter@3d70dab8]
+2024-02-17T22:47:30.469+06:00  INFO 32469 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2024-02-17T22:47:30.482+06:00  INFO 32469 --- [main] com.example.Penta.TaskApplication        : Started TaskApplication in 9.304 seconds (process running for 9.928)
+2024-02-17T22:47:40.408+06:00  INFO 32469 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-02-17T22:47:40.408+06:00  INFO 32469 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-02-17T22:47:40.410+06:00  INFO 32469 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2024-02-17T22:49:34.932+06:00  INFO 32469 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-02-17T22:49:34.935+06:00  INFO 32469 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-02-17T22:49:34.957+06:00  INFO 32469 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-02-17T22:49:43.215+06:00  INFO 32668 --- [main] com.example.Penta.TaskApplication        : Starting TaskApplication using Java 17.0.6 with PID 32668 (/home/adib/Documents/Penta Project/Penta/target/classes started by adib in /home/adib/Documents/Penta Project/Penta)
+2024-02-17T22:49:43.220+06:00  INFO 32668 --- [main] com.example.Penta.TaskApplication        : No active profile set, falling back to 1 default profile: "default"
+2024-02-17T22:49:44.636+06:00  INFO 32668 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-02-17T22:49:44.788+06:00  INFO 32668 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 138 ms. Found 7 JPA repository interfaces.
+2024-02-17T22:49:45.821+06:00  INFO 32668 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-02-17T22:49:45.835+06:00  INFO 32668 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-02-17T22:49:45.835+06:00  INFO 32668 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-02-17T22:49:45.928+06:00  INFO 32668 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-02-17T22:49:45.929+06:00  INFO 32668 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2582 ms
+2024-02-17T22:49:46.282+06:00  INFO 32668 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-02-17T22:49:46.358+06:00  INFO 32668 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-02-17T22:49:46.405+06:00  INFO 32668 --- [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-02-17T22:49:46.673+06:00  INFO 32668 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-02-17T22:49:46.700+06:00  INFO 32668 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-02-17T22:49:47.082+06:00  INFO 32668 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@53f7a906
+2024-02-17T22:49:47.085+06:00  INFO 32668 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-02-17T22:49:48.739+06:00  INFO 32668 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-02-17T22:49:48.862+06:00  INFO 32668 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-02-17T22:49:49.292+06:00  INFO 32668 --- [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-02-17T22:49:50.507+06:00  WARN 32668 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-02-17T22:49:50.874+06:00  INFO 32668 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@40f88929, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@18a9762, org.springframework.security.web.context.SecurityContextHolderFilter@79b9b628, org.springframework.security.web.header.HeaderWriterFilter@65018381, org.springframework.web.filter.CorsFilter@72378bfd, org.springframework.security.web.authentication.logout.LogoutFilter@74534564, com.example.Penta.Config.JwtAuthFilter@51c0346d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1b09f4fb, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@47511582, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@147c00c7, org.springframework.security.web.session.SessionManagementFilter@35266985, org.springframework.security.web.access.ExceptionTranslationFilter@7d593bbc, org.springframework.security.web.access.intercept.AuthorizationFilter@3a5922ec]
+2024-02-17T22:49:51.187+06:00  INFO 32668 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2024-02-17T22:49:51.205+06:00  INFO 32668 --- [main] com.example.Penta.TaskApplication        : Started TaskApplication in 8.809 seconds (process running for 9.464)
+2024-02-17T22:49:57.497+06:00  INFO 32668 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-02-17T22:49:57.498+06:00  INFO 32668 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-02-17T22:49:57.500+06:00  INFO 32668 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-02-17T22:52:40.849+06:00  INFO 32668 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-02-17T22:52:40.852+06:00  INFO 32668 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-02-17T22:52:40.871+06:00  INFO 32668 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-02-17T22:58:44.949+06:00  INFO 33235 --- [main] com.example.Penta.TaskApplication        : Starting TaskApplication using Java 17.0.6 with PID 33235 (/home/adib/Documents/Penta Project/Penta/target/classes started by adib in /home/adib/Documents/Penta Project/Penta)
+2024-02-17T22:58:44.953+06:00  INFO 33235 --- [main] com.example.Penta.TaskApplication        : No active profile set, falling back to 1 default profile: "default"
+2024-02-17T22:58:46.286+06:00  INFO 33235 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-02-17T22:58:46.456+06:00  INFO 33235 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 156 ms. Found 7 JPA repository interfaces.
+2024-02-17T22:58:47.287+06:00  INFO 33235 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-02-17T22:58:47.303+06:00  INFO 33235 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-02-17T22:58:47.304+06:00  INFO 33235 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-02-17T22:58:47.378+06:00  INFO 33235 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-02-17T22:58:47.379+06:00  INFO 33235 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2309 ms
+2024-02-17T22:58:47.642+06:00  INFO 33235 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-02-17T22:58:47.720+06:00  INFO 33235 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-02-17T22:58:47.761+06:00  INFO 33235 --- [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-02-17T22:58:47.987+06:00  INFO 33235 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-02-17T22:58:48.013+06:00  INFO 33235 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-02-17T22:58:48.275+06:00  INFO 33235 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4c2ab536
+2024-02-17T22:58:48.278+06:00  INFO 33235 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-02-17T22:58:50.884+06:00  INFO 33235 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-02-17T22:58:51.036+06:00  INFO 33235 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-02-17T22:58:51.410+06:00  INFO 33235 --- [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-02-17T22:58:52.379+06:00  WARN 33235 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-02-17T22:58:52.749+06:00  INFO 33235 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@147c00c7, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@104972a0, org.springframework.security.web.context.SecurityContextHolderFilter@47511582, org.springframework.security.web.header.HeaderWriterFilter@66851c18, org.springframework.web.filter.CorsFilter@45add64c, org.springframework.security.web.authentication.logout.LogoutFilter@3d70dab8, com.example.Penta.Config.JwtAuthFilter@63437af4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@20fdf45a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@74876292, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@b0bd567, org.springframework.security.web.session.SessionManagementFilter@79b9b628, org.springframework.security.web.access.ExceptionTranslationFilter@75a0e0c2, org.springframework.security.web.access.intercept.AuthorizationFilter@18a9762]
+2024-02-17T22:58:53.067+06:00  INFO 33235 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2024-02-17T22:58:53.079+06:00  INFO 33235 --- [main] com.example.Penta.TaskApplication        : Started TaskApplication in 8.811 seconds (process running for 9.413)
+2024-02-17T22:59:11.340+06:00  INFO 33235 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-02-17T22:59:11.341+06:00  INFO 33235 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-02-17T22:59:11.343+06:00  INFO 33235 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2024-02-17T22:59:30.098+06:00  INFO 33235 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-02-17T22:59:30.101+06:00  INFO 33235 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-02-17T22:59:30.125+06:00  INFO 33235 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-02-17T23:08:51.464+06:00  INFO 34277 --- [main] com.example.Penta.TaskApplication        : Starting TaskApplication using Java 17.0.6 with PID 34277 (/home/adib/Documents/Penta Project/Penta/target/classes started by adib in /home/adib/Documents/Penta Project/Penta)
+2024-02-17T23:08:51.468+06:00  INFO 34277 --- [main] com.example.Penta.TaskApplication        : No active profile set, falling back to 1 default profile: "default"
+2024-02-17T23:08:52.984+06:00  INFO 34277 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-02-17T23:08:53.126+06:00  INFO 34277 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 129 ms. Found 7 JPA repository interfaces.
+2024-02-17T23:08:54.122+06:00  INFO 34277 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-02-17T23:08:54.141+06:00  INFO 34277 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-02-17T23:08:54.142+06:00  INFO 34277 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.18]
+2024-02-17T23:08:54.229+06:00  INFO 34277 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-02-17T23:08:54.230+06:00  INFO 34277 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2606 ms
+2024-02-17T23:08:54.504+06:00  INFO 34277 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-02-17T23:08:54.577+06:00  INFO 34277 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-02-17T23:08:54.629+06:00  INFO 34277 --- [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-02-17T23:08:54.918+06:00  INFO 34277 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-02-17T23:08:54.942+06:00  INFO 34277 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-02-17T23:08:55.306+06:00  INFO 34277 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2154652c
+2024-02-17T23:08:55.309+06:00  INFO 34277 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-02-17T23:08:56.974+06:00  INFO 34277 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-02-17T23:08:57.106+06:00  INFO 34277 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-02-17T23:08:57.589+06:00  INFO 34277 --- [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-02-17T23:08:58.841+06:00  WARN 34277 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-02-17T23:08:59.260+06:00  INFO 34277 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@18a9762, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@72378bfd, org.springframework.security.web.context.SecurityContextHolderFilter@7f5582db, org.springframework.security.web.header.HeaderWriterFilter@75a0e0c2, org.springframework.web.filter.CorsFilter@147c00c7, org.springframework.security.web.authentication.logout.LogoutFilter@5876cd86, com.example.Penta.Config.JwtAuthFilter@32cda33c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@47511582, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@736de3b6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@104972a0, org.springframework.security.web.session.SessionManagementFilter@6070990b, org.springframework.security.web.access.ExceptionTranslationFilter@788be73c, org.springframework.security.web.access.intercept.AuthorizationFilter@3e6b08d4]
+2024-02-17T23:08:59.627+06:00  INFO 34277 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2024-02-17T23:08:59.641+06:00  INFO 34277 --- [main] com.example.Penta.TaskApplication        : Started TaskApplication in 8.981 seconds (process running for 9.686)
+2024-02-17T23:09:26.499+06:00  INFO 34277 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-02-17T23:09:26.499+06:00  INFO 34277 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-02-17T23:09:26.501+06:00  INFO 34277 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2024-02-17T23:57:36.826+06:00  INFO 34277 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-02-17T23:57:36.840+06:00  INFO 34277 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-02-17T23:57:36.863+06:00  INFO 34277 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

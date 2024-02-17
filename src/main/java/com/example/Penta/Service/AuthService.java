@@ -25,8 +25,6 @@ public class AuthService {
     public AuthResponse authenticate(AuthRequest request) throws AuthenticationException {
         try{
             UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
-            System.out.println(userDetails.getUsername());
-            System.out.println(userDetails.getPassword());
             if(userDetails == null){
                 return AuthResponse.builder()
                         .error("User Doesn't Exists")

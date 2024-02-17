@@ -6,6 +6,7 @@ import com.example.Penta.dto.UpdateUserStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -18,6 +19,7 @@ public class AdminController {
     private EMSUserDetailsService emsUserDetailsService;
 
     //Set User's Role
+
     @PutMapping("/update/role/{user_id}")
     public ResponseEntity<?> updateUserRole(@PathVariable("user_id") UUID userId, @RequestBody UpdateUserRole updateUserRole){
         try{
@@ -32,6 +34,7 @@ public class AdminController {
 
     // Update User's Status
     @PutMapping("/update/status/{user_id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> updateUserStatus(@PathVariable("user_id") UUID userId, @RequestBody UpdateUserStatus updateUserStatus){
         try{
             emsUserDetailsService.updateUserStatus(userId, updateUserStatus.getUserStatus());

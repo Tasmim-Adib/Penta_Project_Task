@@ -35,9 +35,9 @@ public class EMSUser implements UserDetails{
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + RoleEnum.ADMIN.name()));
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + RoleEnum.STUDENT.name()));
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + RoleEnum.TEACHER.name()));
+        if(role != null){
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleEnum().name()));
+        }
         return authorities;
     }
 

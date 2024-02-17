@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/teacher")
 @CrossOrigin
 public class TeacherController {
     @Autowired
@@ -31,7 +31,7 @@ public class TeacherController {
 
 
     //Save a TEACHER info
-    @PostMapping("/teacher/save/{user_id}")
+    @PostMapping("/save/{user_id}")
     public ResponseEntity<?> createTeacher(@PathVariable("user_id") UUID user_id, @RequestBody TeacherRequest request){
         Optional<EMSUser> optionalEMSUser = emsUserRepository.findByUserId(user_id);
         Teacher teacher = new Teacher();
@@ -49,7 +49,7 @@ public class TeacherController {
     }
 
     //Find a teacher with an user_id
-    @GetMapping("/teacher/get/{user_id}")
+    @GetMapping("/get/{user_id}")
     public ResponseEntity<?> getTeacherInfo(@PathVariable("user_id") UUID user_id) {
         Optional<Teacher> optionalResponse = teacherService.getTeacherInfo(user_id);
         TeacherResponse teacherResponse = new TeacherResponse();
@@ -71,13 +71,13 @@ public class TeacherController {
     }
 
     //Finding All Teacher
-    @GetMapping("/teacher/get/all")
+    @GetMapping("/get/all")
     public List<AllTeacherResponse> getAllTeacher(){
         return teacherService.findAllTeacher();
     }
 
     //Update info of a teacher
-    @PutMapping("/teacher/update/{user_id}")
+    @PutMapping("/update/{user_id}")
     public ResponseEntity<?> updateTeacherInfo(@PathVariable("user_id") UUID user_id,@RequestBody TeacherUpdateRequest request){
         String response = teacherService.updateTeacherInfo(user_id,request);
         if(response.equals("Teacher User Updated")){
@@ -88,14 +88,14 @@ public class TeacherController {
     }
 
     //find all teachers who got request from a particular student
-    @GetMapping("/teacher/get/request/{student_user_id}")
+    @GetMapping("/get/request/{student_user_id}")
     public List<AllTeacherResponse> findAllTeacherWhomStudentRequest(@PathVariable("student_user_id")UUID student_user_id){
         return teacherService.findAllTeacherWhomStudentRequest(student_user_id);
 
     }
 
     // find all teacher who didn't get request from a particular student
-    @GetMapping("/teacher/not/get/request/{student_user_id}")
+    @GetMapping("/not/get/request/{student_user_id}")
     public List<AllTeacherResponse> findAllTeacherWhomStudentNOTRequest(@PathVariable("student_user_id")UUID student_user_id){
         return teacherService.findAllTeacherWhomStudentNotRequest(student_user_id);
     }
