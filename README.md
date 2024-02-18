@@ -7,4 +7,4 @@ Video Demonstration : [https://www.youtube.com/watch?v=HQ6G9fXgABw](https://www.
 
 Frontend (React) : [https://github.com/Tasmim-Adib/Penta_Task_Frontend](https://github.com/Tasmim-Adib/Penta_Task_Frontend)
 
-API description : [API description](https://docs.google.com/document/d/1N04YJxrnZvyrBrkRtfoEGmF1gRmOcZpYadFnpaH1XO8/edit)
+API Documentation : [API Documentation](https://docs.google.com/document/d/1N04YJxrnZvyrBrkRtfoEGmF1gRmOcZpYadFnpaH1XO8/edit)
