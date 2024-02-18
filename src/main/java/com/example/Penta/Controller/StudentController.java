@@ -38,28 +38,21 @@ public class StudentController {
     @Autowired
     private StudentTeacherMapService studentTeacherMapService;
 
+
     //save a student info
+    @PreAuthorize("hasAuthority('ROLE_STUDENT')")
     @PostMapping("/save/{user_id}")
     public ResponseEntity<?> createStudent(@PathVariable("user_id") UUID user_id, @RequestBody StudentRequest request){
-        Optional<EMSUser> optionalEMSUser = emsUserRepository.findByUserId(user_id);
-        Student student = new Student();
-        if(optionalEMSUser.isPresent()){
-            EMSUser user = optionalEMSUser.get();
 
-            student.setStudent_id(request.getStudent_id());
-            student.setDepartment_name(request.getDepartment_name());
-            student.setBatch_no(request.getBatch_no());
-            student.setEmsUser(user);
-            studentService.createStudent(student);
-            return new ResponseEntity<>("Student is Created",HttpStatus.CREATED);
-        }
+        String response = studentService.createStudent(user_id,request);
+        if(response.equals("New Student Added"))
+            return new ResponseEntity<>(response,HttpStatus.CREATED);
         else{
-            return new ResponseEntity<>("Student is not Created",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     //get a student info
-
     @GetMapping("/get/{user_id}")
     public ResponseEntity<?> getStudentInfo(@PathVariable("user_id") UUID user_id){
         Optional<Student> optionalStudent = studentService.getStudentInfo(user_id);
@@ -77,7 +70,7 @@ public class StudentController {
             studentResponse.setRole_id(student.getEmsUser().getRole().getRole_id());
 
             if(student.getAdvisor() != null){
-                Optional<Teacher> optionalTeacher = teacherService.getTeacherInfo(student.getAdvisor().getUser_id());
+                Optional<Teacher> optionalTeacher = teacherService.getTeacherInfo(student.getAdvisor().getEmsUser().getUser_id());
                 if(optionalTeacher.isPresent()){
                     Teacher teacher = optionalTeacher.get();
                     studentResponse.setAdvisor(teacher.getEmsUser().getName());
@@ -91,6 +84,7 @@ public class StudentController {
     }
 
     //update student advisor info
+    @PreAuthorize("hasAuthority('ROLE_TEACHER')")
     @PutMapping("/update/advisor/{user_id}")
     public ResponseEntity<?> updateAdvisorInfo(@PathVariable("user_id") UUID user_id, @RequestBody AdvisorUpdateRequest request){
         String response = studentService.updateAdvisorInfo(request.getAdvisor(), user_id);
@@ -110,6 +104,7 @@ public class StudentController {
     }
 
     // remove a student from Advice list
+    @PreAuthorize("hasAuthority('ROLE_TEACHER')")
     @PutMapping("/remove/advisor/{student_user_id}")
     public ResponseEntity<?> removeStudentFromAdviceList(@PathVariable("student_user_id")UUID student_user_id){
         String response = studentService.removeStudentFromAdviceList(student_user_id);
@@ -123,12 +118,14 @@ public class StudentController {
 
 
     //Find all student with particular advisor
+    @PreAuthorize("hasAuthority('ROLE_TEACHER')")
     @GetMapping("/get/advisor/{teacher_user_id}")
     public List<AllStudentWithAdvisorResponse> getAllStudentWithAdvisor(@PathVariable("teacher_user_id") UUID teacher_user_id){
         return studentService.findAllStudentWithAdvisor(teacher_user_id);
     }
 
     //update a student info
+    @PreAuthorize("hasAuthority('ROLE_STUDENT')")
     @PutMapping("/update/{user_id}")
     public ResponseEntity<?> updateStudentInfo(@PathVariable("user_id") UUID user_id, @RequestBody StudentUpdateRequest request){
         String response = studentService.updateStudentInfo(user_id,request);
@@ -141,6 +138,7 @@ public class StudentController {
     }
 
     // find student who request a teacher to be advisor
+    @PreAuthorize("hasAuthority('ROLE_TEACHER')")
     @GetMapping("/get/request/advisor/{teacher_user_id}")
     public List<AllStudentWithAdvisorResponse> getAllStudentWhoRequest(@PathVariable("teacher_user_id")UUID teacher_user_id){
         return studentService.findAllStudentWhoRequest(teacher_user_id);

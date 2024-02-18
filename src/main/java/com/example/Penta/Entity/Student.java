@@ -23,6 +23,14 @@ public class Student{
     private int batch_no;
 
     @ManyToOne
-    @JoinColumn(name = "advisor_id")
-    private EMSUser advisor;
+    @JoinColumn(name = "advisor_id",referencedColumnName = "user_id")
+    private Teacher advisor;
+
+    public Student(EMSUser emsUser, String departmentName, String studentId, int batchNo, Teacher advisor) {
+        this.emsUser = emsUser;
+        this.student_id = studentId;
+        this.department_name = departmentName;
+        this.batch_no = batchNo;
+        this.advisor = advisor;
+    }
 }

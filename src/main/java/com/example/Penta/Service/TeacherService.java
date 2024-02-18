@@ -5,8 +5,10 @@ import com.example.Penta.Entity.Student;
 import com.example.Penta.Entity.Teacher;
 import com.example.Penta.Repository.EMSUserRepository;
 import com.example.Penta.Repository.TeacherRepository;
+import com.example.Penta.Service.DesignPattern.TeacherFactory;
 import com.example.Penta.dto.AllTeacherResponse;
 import com.example.Penta.dto.StudentUpdateRequest;
+import com.example.Penta.dto.TeacherRequest;
 import com.example.Penta.dto.TeacherUpdateRequest;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +28,25 @@ public class TeacherService {
 
     @Autowired
     private EMSUserRepository emsUserRepository;
-    public String createTeacher(Teacher teacher){
-        teacherRepository.save(teacher);
-        return "New Teacher Added";
+
+    @Autowired
+    private TeacherFactory teacherFactory;
+
+    public String createTeacher(UUID user_id, TeacherRequest teacher){
+        Optional<EMSUser> optionalEMSUser = emsUserRepository.findByUserId(user_id);
+
+        if(optionalEMSUser.isPresent()){
+            EMSUser emsUser = optionalEMSUser.get();
+            var teacherUser = teacherFactory.createTeacher(emsUser,
+                    teacher.getFaculty_name(),
+                    teacher.getDesignation());
+            teacherRepository.save(teacherUser);
+            return "New Teacher Added";
+        }
+        else{
+            return "User Not Found";
+        }
+
     }
 
     public Optional<Teacher> getTeacherInfo(UUID user_id){

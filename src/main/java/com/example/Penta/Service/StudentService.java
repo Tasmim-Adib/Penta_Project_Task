@@ -6,6 +6,7 @@ import com.example.Penta.Entity.Teacher;
 import com.example.Penta.Repository.EMSUserRepository;
 import com.example.Penta.Repository.StudentRepository;
 import com.example.Penta.Repository.TeacherRepository;
+import com.example.Penta.Service.DesignPattern.StudentFactory;
 import com.example.Penta.dto.AllStudentWithAdvisorResponse;
 import com.example.Penta.dto.AllTeacherResponse;
 import com.example.Penta.dto.StudentRequest;
@@ -30,9 +31,25 @@ public class StudentService {
     @Autowired
     private TeacherService teacherService;
 
-    public String createStudent(Student student){
-        studentRepository.save(student);
-        return "New Student Added";
+    @Autowired
+    private StudentFactory studentFactory;
+
+    public String createStudent(UUID user_id,StudentRequest student){
+        Optional<EMSUser> optionalEMSUser = emsUserRepository.findByUserId(user_id);
+        if(optionalEMSUser.isPresent()){
+            EMSUser emsUser = optionalEMSUser.get();
+
+            var studentUser = studentFactory.createStudent(emsUser,
+                    student.getDepartment_name(),
+                    student.getStudent_id(),
+                    student.getBatch_no(),
+                    null);
+            studentRepository.save(studentUser);
+            return "New Student Added";
+        }
+        else{
+            return "User not Found";
+        }
     }
 
     public Optional<Student> getStudentInfo(UUID user_id){
@@ -47,7 +64,7 @@ public class StudentService {
             Student student = optionalStudent.get();
             if(optionalTeacher.isPresent()){
                 Teacher teacher = optionalTeacher.get();
-                student.setAdvisor(teacher.getEmsUser());
+                student.setAdvisor(teacher);
                 studentRepository.save(student);
                 return "Advisor Info Updated";
             }

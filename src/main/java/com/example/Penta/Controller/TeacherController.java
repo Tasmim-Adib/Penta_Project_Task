@@ -12,6 +12,7 @@ import com.example.Penta.dto.TeacherUpdateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,24 +32,20 @@ public class TeacherController {
 
 
     //Save a TEACHER info
+    @PreAuthorize("hasAuthority('ROLE_TEACHER')")
     @PostMapping("/save/{user_id}")
     public ResponseEntity<?> createTeacher(@PathVariable("user_id") UUID user_id, @RequestBody TeacherRequest request){
-        Optional<EMSUser> optionalEMSUser = emsUserRepository.findByUserId(user_id);
-        Teacher teacher = new Teacher();
-        if(optionalEMSUser.isPresent()){
-            EMSUser user = optionalEMSUser.get();
-            teacher.setEmsUser(user);
-            teacher.setDesignation(request.getDesignation());
-            teacher.setFaculty_name(request.getFaculty_name());
-            teacherService.createTeacher(teacher);
-            return new ResponseEntity<>("Teacher Created",HttpStatus.CREATED);
+        String response = teacherService.createTeacher(user_id,request);
+        if(response.equals("New Teacher Added")){
+            return new ResponseEntity<>(response,HttpStatus.CREATED);
         }
         else{
-            return new ResponseEntity<>("Teacher can't create",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     //Find a teacher with an user_id
+
     @GetMapping("/get/{user_id}")
     public ResponseEntity<?> getTeacherInfo(@PathVariable("user_id") UUID user_id) {
         Optional<Teacher> optionalResponse = teacherService.getTeacherInfo(user_id);
@@ -77,6 +74,7 @@ public class TeacherController {
     }
 
     //Update info of a teacher
+    @PreAuthorize("hasAuthority('ROLE_TEACHER')")
     @PutMapping("/update/{user_id}")
     public ResponseEntity<?> updateTeacherInfo(@PathVariable("user_id") UUID user_id,@RequestBody TeacherUpdateRequest request){
         String response = teacherService.updateTeacherInfo(user_id,request);
@@ -88,6 +86,7 @@ public class TeacherController {
     }
 
     //find all teachers who got request from a particular student
+    @PreAuthorize("hasAuthority('ROLE_STUDENT')")
     @GetMapping("/get/request/{student_user_id}")
     public List<AllTeacherResponse> findAllTeacherWhomStudentRequest(@PathVariable("student_user_id")UUID student_user_id){
         return teacherService.findAllTeacherWhomStudentRequest(student_user_id);
@@ -95,6 +94,7 @@ public class TeacherController {
     }
 
     // find all teacher who didn't get request from a particular student
+    @PreAuthorize("hasAuthority('ROLE_STUDENT')")
     @GetMapping("/not/get/request/{student_user_id}")
     public List<AllTeacherResponse> findAllTeacherWhomStudentNOTRequest(@PathVariable("student_user_id")UUID student_user_id){
         return teacherService.findAllTeacherWhomStudentNotRequest(student_user_id);

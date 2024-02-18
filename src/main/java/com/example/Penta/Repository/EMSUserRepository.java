@@ -13,6 +13,7 @@ import java.util.UUID;
 public interface EMSUserRepository extends JpaRepository<EMSUser, UUID> {
 
     Optional<EMSUser> findByEmail(String email);
+
     @Query("SELECT e FROM EMSUser e WHERE e.user_id = :id")
     Optional<EMSUser> findByUserId(UUID id);
 }

@@ -14,6 +14,7 @@ public class Teacher{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @OneToOne
     @JoinColumn(name = "user_id")
     private EMSUser emsUser;

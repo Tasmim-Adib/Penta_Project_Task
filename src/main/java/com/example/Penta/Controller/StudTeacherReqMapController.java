@@ -6,6 +6,7 @@ import com.example.Penta.dto.DeleteStuTeachMapRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -19,6 +20,7 @@ public class StudTeacherReqMapController {
     private StudentTeacherMapService studentTeacherMapService;
 
     // student request to a teacher
+    @PreAuthorize("hasAuthority('ROLE_STUDENT')")
     @PostMapping("/save")
     public ResponseEntity<?> saveRequest(@RequestBody StudentTeacherRequestMap map){
         String response = studentTeacherMapService.saveData(map);
@@ -35,6 +37,7 @@ public class StudTeacherReqMapController {
     }
 
     // If any teacher reject
+    @PreAuthorize("hasAuthority('ROLE_TEACHER')")
     @DeleteMapping("/delete/{teacher_user_id}")
     public ResponseEntity<?> deleteStudentTeacherMap(@PathVariable("teacher_user_id") UUID teacher_user_id,
                                                      @RequestBody DeleteStuTeachMapRequest request){

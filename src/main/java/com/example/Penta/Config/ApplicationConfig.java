@@ -2,6 +2,7 @@ package com.example.Penta.Config;
 
 import com.example.Penta.Entity.EMSUser;
 import com.example.Penta.Repository.EMSUserRepository;
+import com.example.Penta.Service.DesignPattern.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,6 +40,20 @@ public class ApplicationConfig {
         return authProvider;
     }
 
+    @Bean
+    public EMSUserFactory emsUserFactory(){
+        return new EMSUserFactoryImpl();
+    }
+
+    @Bean
+    public StudentFactory studentFactory(){
+        return new StudentFactoryImpl();
+    }
+
+    @Bean
+    public TeacherFactory teacherFactory(){
+        return new TeacherFactoryImpl();
+    }
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();

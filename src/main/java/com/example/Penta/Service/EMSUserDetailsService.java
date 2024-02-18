@@ -6,6 +6,8 @@ import com.example.Penta.Entity.Teacher;
 import com.example.Penta.Repository.EMSUserRepository;
 import com.example.Penta.Repository.RoleRepository;
 
+import com.example.Penta.Service.DesignPattern.EMSUserFactory;
+import com.example.Penta.Service.DesignPattern.EMSUserFactoryImpl;
 import com.example.Penta.dto.EMSUserResponseAll;
 import com.example.Penta.dto.RegisterRequest;
 import com.example.Penta.dto.RegisterResponse;
@@ -37,17 +39,18 @@ public class EMSUserDetailsService {
     @Autowired
     private MailKeyService mailKeyService;
 
+    @Autowired
+    private EMSUserFactory emsUserFactory;
+
     @Transactional
     public RegisterResponse saveEMSUser(RegisterRequest registerRequest){
         Optional<EMSUser> emsUser = emsUserRepository.findByEmail(registerRequest.getEmail());
         if(!emsUser.isPresent()){
-            var user = EMSUser.builder()
-                    .email(registerRequest.getEmail())
-                    .name(registerRequest.getName())
-                    .phone(registerRequest.getPhone())
-                    .status("ACTIVE")
-                    .password(passwordEncoder.encode(registerRequest.getPassword()))
-                    .build();
+            var user = emsUserFactory.createEmsUser(registerRequest.getEmail(),
+                    registerRequest.getPassword(),
+                    registerRequest.getName(),
+                    registerRequest.getPhone(),
+                    "ACTIVE", null);
 
             EMSUser savedUser =  emsUserRepository.save(user);
             temporaryRegistryService.deleteFromTemporaryTable(registerRequest.getEmail());
@@ -82,8 +85,8 @@ public class EMSUserDetailsService {
             emsUserRepository.save(user);
             return "User Role Added";
         }
-        else{
-            throw new EntityNotFoundException("User not found with ID: " + user_id);
+        else {
+            return "Entity Not Found";
         }
     }
 
@@ -97,7 +100,7 @@ public class EMSUserDetailsService {
             return "User Status Updated";
         }
         else{
-            throw new EntityNotFoundException("User not found with ID: " + user_id);
+            return "Entity Not Found";
         }
     }
 
@@ -140,23 +143,4 @@ public class EMSUserDetailsService {
             return "Password Can't Reset";
         }
     }
-//    public EMSUser createUser(UUID user_id){
-//        Optional<EMSUser> optionalEMSUser = emsUserRepository.findByUserId(user_id);
-//        if(optionalEMSUser.isPresent()){
-//            EMSUser user = optionalEMSUser.get();
-//            int roleId = user.getRole().getRole_id();
-//
-//            switch (roleId){
-//                case 2:
-//                    return studentFactory.createUser();
-//                case 3:
-//                    return teacherFactory.createUser();
-//                default:
-//                    throw new IllegalArgumentException("Invalid user type");
-//            }
-//        }
-//        else{
-//            throw new IllegalArgumentException("User not found for ID: " + user_id);
-//        }
-//    }
 }
