@@ -25,6 +25,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/student")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class StudentController {
 
     @Autowired
@@ -143,6 +144,5 @@ public class StudentController {
     public List<AllStudentWithAdvisorResponse> getAllStudentWhoRequest(@PathVariable("teacher_user_id")UUID teacher_user_id){
         return studentService.findAllStudentWhoRequest(teacher_user_id);
     }
-
 
 }

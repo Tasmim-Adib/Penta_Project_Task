@@ -15,6 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/admin")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AdminController {
 
     @Autowired
@@ -59,5 +60,10 @@ public class AdminController {
         else{
             return new ResponseEntity<>("User Not Found",HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/get/unauthorized")
+    public String getUnauthorized(){
+        return "can't access";
     }
 }

@@ -94,4 +94,15 @@ public class AuthController {
             return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("/update/phone/{user_id}")
+    public ResponseEntity<?> updatePhone(@PathVariable("user_id") UUID user_id, @RequestBody UpdatePhoneRequest request){
+        String response = emsUserDetailsService.updatePhone(user_id,request);
+        if(response.equals("Phone updated")){
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(response,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

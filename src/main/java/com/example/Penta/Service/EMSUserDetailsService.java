@@ -8,10 +8,7 @@ import com.example.Penta.Repository.RoleRepository;
 
 import com.example.Penta.Service.DesignPattern.EMSUserFactory;
 import com.example.Penta.Service.DesignPattern.EMSUserFactoryImpl;
-import com.example.Penta.dto.EMSUserResponseAll;
-import com.example.Penta.dto.RegisterRequest;
-import com.example.Penta.dto.RegisterResponse;
-import com.example.Penta.dto.ResetPasswordRequest;
+import com.example.Penta.dto.*;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -89,7 +86,6 @@ public class EMSUserDetailsService {
             return "Entity Not Found";
         }
     }
-
     public String updateUserStatus(UUID user_id, String status){
         Optional<EMSUser> optionalEMSUser = emsUserRepository.findByUserId(user_id);
 
@@ -141,6 +137,19 @@ public class EMSUserDetailsService {
         }
         else{
             return "Password Can't Reset";
+        }
+    }
+
+    public String updatePhone(UUID user_id, UpdatePhoneRequest request){
+        Optional<EMSUser> optionalEMSUser = emsUserRepository.findByUserId(user_id);
+        if(optionalEMSUser.isPresent()){
+            EMSUser emsUser = optionalEMSUser.get();
+            emsUser.setPhone(request.getPhone());
+            emsUserRepository.save(emsUser);
+            return "Phone updated";
+        }
+        else{
+            return "Phone not Updated";
         }
     }
 }
